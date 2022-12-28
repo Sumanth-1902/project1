@@ -88,5 +88,19 @@ depends_on          = [azurerm_resource_group.rg]
   os_profile_linux_config {
     disable_password_authentication = false
   }
-  
 }
+resource "azurerm_container_registry" "acr" {
+  name     = "sumanthacr1"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  sku                      = "Basic"
+  admin_enabled            = true
+}
+
+output "admin_password" {
+  value       = azurerm_container_registry.acr.admin_password
+  description = "The object ID of the user"
+sensitive = true
+}
+  
+
